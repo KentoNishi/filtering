@@ -113,7 +113,7 @@ class LocalAmplitudeComputer:
         # Gaussian smoothing (to correct for end effects)..
         amplitudes = torch.empty(
             (minibatch_size * num_channels + 1), signal_length,
-            dtype=self.dtype)
+            dtype=self.dtype).type_as(input)
 
         # set the last row to all ones.
         amplitudes[minibatch_size*num_channels:,:] = 1
@@ -194,7 +194,7 @@ class LocalAmplitudeComputer:
         (n, s) = amplitudes.shape
         t = (s + 2 * b - 1) // b
 
-        ans = torch.zeros((n, t), dtype=self.dtype)
+        ans = torch.zeros((n, t), dtype=self.dtype).type_as(amplitudes)
 
         # make sure `amplitudes` is contiguous.
 

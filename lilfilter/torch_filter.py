@@ -61,7 +61,7 @@ class SymmetricFirFilter:
         # input.unsqueeze(1) changes dim from (minibatch_size, sequence_length) to
         # (minibatch_size, num_channels=1, sequence_length)
         # the final squeeze(1) removes the num_channels=1 axis
-        return torch.nn.functional.conv1d(input.unsqueeze(1), self.filt,
+        return torch.nn.functional.conv1d(input.unsqueeze(1), self.filt.type_as(input),
                                          padding=self.padding).squeeze(1)
 
 
